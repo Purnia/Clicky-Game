@@ -1,21 +1,26 @@
 import React from "react";
+import "./style.css";
 
 function Navbar() {
     return (
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-sm">
         <div>
           <ul className="navbar-nav">
-            <li className="nav-item">
-              Clicky Game
+            <li className="brand">
+            <a href="/">Clicky Game</a>
             </li>
             <li className="nav-item">
-              Click an Image to Begin!
+              Click to get Started!
             </li>
-            <li className="nav-item">
-              Score: 
+         
+          <li className="nav-item">
+              "Score: "
+              "0"
+              " | Top Score: "
+              "0" 
             </li>
           </ul>
-        </div>
+     </div>
       </nav>
     );
   }
