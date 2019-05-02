@@ -15,13 +15,25 @@ class App extends Component {
     topScore:0
   };
 
+  
+
   componentDidMount() {
-    this.shuffle(images);
-    this.setState({score: 0})
+    this.newGame();
+  }
+
+  newGame = function(){
+    let newArray = this.state.images.map(image => {
+      image.clicked = false;
+      return image;
+    });
+    this.setState({score: 0, images:newArray});
+    this.shuffle(this.state.images);
   }
 
  shuffle = function(array) {
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length; 
+  var temporaryValue;
+  var randomIndex;
   while (0 !== currentIndex) {
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
@@ -34,26 +46,29 @@ class App extends Component {
  }
 
  handleCardClick = id => {
-  let selectedIndex = this.state.images.findIndex(image => image.id === id);
+  let selectedImage = this.state.images.find(image => image.id === id); //.find returns the image when its true (implicit return in arrow function)
 
-  if(this.state.images[selectedIndex].clicked){
+  if(selectedImage.clicked){
     alert("Game Over!");
-    this.shuffle();
-    this.setState({score: 0})
+    this.newGame();
+    
+    
 
   }else {
     let currentScore = this.state.score +1;
     if(currentScore > this.state.topScore) {
       this.setState({topScore: currentScore})
     }
-    this.shuffle();
-    this.state.images[selectedIndex].clicked = true
-    this.setState({score: currentScore})
-
-  }
-
-  if(this.state.score === 12) {
-    alert("You Win!")
+    if(currentScore ===3) {
+      alert("You Win!")
+      this.newGame();
+    }else{
+      this.shuffle(this.state.images);
+      selectedImage.clicked = true
+      this.setState({score: currentScore})
+      
+    }
+    
   }
 
   }
